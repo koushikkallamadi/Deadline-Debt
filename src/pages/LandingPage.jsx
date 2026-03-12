@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import { usePWA } from '../context/PWAContext';
 
 function TypewriterText({ text, speed = 100, delay = 0 }) {
   const [displayed, setDisplayed] = useState('');
@@ -81,6 +82,8 @@ function AnimatedCounter({ target, duration = 2000, suffix = '' }) {
 }
 
 export default function LandingPage() {
+  const { isInstallable, installApp } = usePWA();
+
   return (
     <div className="landing-page">
       <FloatingOrbs />
@@ -205,7 +208,22 @@ export default function LandingPage() {
         <div className="cta-card">
           <h2>Ready to clear your debt?</h2>
           <p>Join thousands of students already tracking and paying off their academic debt.</p>
-          <Link to="/register" className="btn btn-primary btn-lg btn-glow">Start for free →</Link>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center', marginTop: '24px' }}>
+            <Link to="/register" className="btn btn-primary btn-lg btn-glow">Start for free →</Link>
+            {isInstallable && (
+              <button 
+                onClick={installApp} 
+                className="btn btn-ghost btn-lg"
+                style={{
+                  border: '1px solid var(--accent-main)',
+                  background: 'rgba(139, 92, 246, 0.05)',
+                  boxShadow: '0 0 20px rgba(139, 92, 246, 0.1)'
+                }}
+              >
+                📥 Download App
+              </button>
+            )}
+          </div>
         </div>
       </section>
 

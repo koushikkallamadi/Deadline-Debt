@@ -1726,6 +1726,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   gap: 12px;
+  white-space: nowrap;
 }
 
 .navbar-logo::before {
@@ -2043,7 +2044,32 @@ textarea:focus {
   }
 
   .navbar {
-    padding: 0 16px;
+    padding: 0 8px;
+    gap: 4px;
+  }
+
+  .navbar-logo {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .navbar-logo::before {
+    width: 8px;
+    height: 8px;
+  }
+
+  .navbar-actions {
+    gap: 4px;
+  }
+
+  .navbar-actions .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    height: 36px;
+  }
+
+  .navbar-actions .login-btn {
+    display: flex; /* Restored */
   }
 
   .main-content-wrapper .dashboard-page {

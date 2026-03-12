@@ -20,28 +20,9 @@ export default function Navbar({ variant = 'landing', onToggleSidebar }) {
         <Link to="/" className="navbar-logo">Deadline Debt</Link>
       </div>
       <div className="navbar-actions">
-        {isInstallable && (
-          <button 
-            onClick={installApp} 
-            className="btn btn-ghost" 
-            style={{ 
-              padding: '6px 12px', 
-              fontSize: '12px', 
-              borderRadius: '99px',
-              border: '1px solid var(--accent-main)',
-              background: 'rgba(139, 92, 246, 0.1)',
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '6px' 
-            }}
-          >
-            <span style={{ fontSize: '14px' }}>📥</span>
-            <span style={{ fontWeight: 700 }}>App</span>
-          </button>
-        )}
         {variant === 'landing' && (
           <>
-            <Link to="/login" className="btn btn-ghost">Login</Link>
+            <Link to="/login" className="btn btn-ghost login-btn">Login</Link>
             <Link to="/register" className="btn btn-primary">Get Started</Link>
           </>
         )}
