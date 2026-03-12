@@ -40,7 +40,7 @@ export default function RegisterPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <Link to="/" className="auth-logo">Debt Tracker</Link>
+        <Link to="/" className="auth-logo">Deadline Debt</Link>
         <h1>Create an account</h1>
         <p className="auth-subtitle">Start tracking your academic debt today</p>
 

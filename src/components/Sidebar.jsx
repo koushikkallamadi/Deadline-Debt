@@ -1,8 +1,10 @@
 import { useAuth } from '../context/AuthContext';
+import { usePWA } from '../context/PWAContext';
 import { Link } from 'react-router-dom';
 
 export default function Sidebar({ isOpen = true, onClose, activeTab, setActiveTab, onOpenAI }) {
     const { user, logout } = useAuth();
+    const { isInstallable, installApp } = usePWA();
 
     const navItems = [
         { id: 'dashboard', icon: '📊', label: 'Debt Overview' },
@@ -51,6 +53,21 @@ export default function Sidebar({ isOpen = true, onClose, activeTab, setActiveTa
                 </nav>
 
                 <div className="app-sidebar-bottom">
+                    {isInstallable && (
+                        <button 
+                            className="app-sidebar-btn" 
+                            style={{ 
+                                color: 'var(--accent-light)', 
+                                border: '1px solid var(--accent-glow)',
+                                background: 'rgba(139, 92, 246, 0.05)',
+                                marginBottom: '8px'
+                            }} 
+                            onClick={installApp}
+                        >
+                            <span className="app-sidebar-icon">📥</span>
+                            <span className="app-sidebar-label">Install App</span>
+                        </button>
+                    )}
                     <button className="app-sidebar-btn logout" onClick={logout}>
                         <span className="app-sidebar-label">Logout</span>
                     </button>

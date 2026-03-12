@@ -1,6 +1,6 @@
 {
-    "name": "Debt Tracker",
-    "short_name": "Debt Tracker",
+    "name": "Deadline Debt",
+    "short_name": "Deadline Debt",
     "description": "Track your academic debt",
     "start_url": "/",
     "display": "standalone",

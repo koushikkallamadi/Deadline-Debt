@@ -1,0 +1,16 @@
+Revert "added installation recommendation"
+
+This reverts commit ff5c3b1ae8a1d6681d376a6230f157a217c362cf.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch is up to date with 'origin/main'.
+#
+# Changes to be committed:
+#	deleted:    public/sw.js
+#	modified:   src/components/Navbar.jsx
+#	deleted:    src/context/PWAContext.jsx
+#	modified:   src/main.jsx
+#

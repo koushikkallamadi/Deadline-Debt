@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { usePWA } from '../context/PWAContext';
 
 export default function Navbar({ variant = 'landing', onToggleSidebar }) {
   const { user, logout } = useAuth();
+  const { isInstallable, installApp } = usePWA();
 
   return (
     <nav className="navbar">
@@ -15,9 +17,28 @@ export default function Navbar({ variant = 'landing', onToggleSidebar }) {
             ☰
           </button>
         )}
-        <Link to="/" className="navbar-logo">Debt Tracker</Link>
+        <Link to="/" className="navbar-logo">Deadline Debt</Link>
       </div>
       <div className="navbar-actions">
+        {isInstallable && (
+          <button 
+            onClick={installApp} 
+            className="btn btn-ghost" 
+            style={{ 
+              padding: '6px 12px', 
+              fontSize: '12px', 
+              borderRadius: '99px',
+              border: '1px solid var(--accent-main)',
+              background: 'rgba(139, 92, 246, 0.1)',
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '6px' 
+            }}
+          >
+            <span style={{ fontSize: '14px' }}>📥</span>
+            <span style={{ fontWeight: 700 }}>App</span>
+          </button>
+        )}
         {variant === 'landing' && (
           <>
             <Link to="/login" className="btn btn-ghost">Login</Link>
