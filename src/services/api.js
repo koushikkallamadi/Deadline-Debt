@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Uses VITE_API_URL from .env — falls back to localhost for local dev
+// Uses VITE_API_URL from .env — falls back to the deployed backend
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+    baseURL: import.meta.env.VITE_API_URL || 'https://deadline-debt.onrender.com/api',
 });
 
 // Request interceptor to add the auth token to headers
