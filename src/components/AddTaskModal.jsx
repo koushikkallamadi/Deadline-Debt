@@ -4,9 +4,11 @@ export default function AddTaskModal({ onClose, onAdd }) {
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
   const [dueDate, setDueDate] = useState('');
+  const [dueTime, setDueTime] = useState('23:59');
   const [topics, setTopics] = useState([{ id: Date.now(), text: '' }]);
   const [loading, setLoading] = useState(false);
   const dateRef = useRef(null);
+  const timeRef = useRef(null);
 
   const handleAddTopic = () => {
     setTopics([...topics, { id: Date.now(), text: '' }]);
@@ -28,14 +30,17 @@ export default function AddTaskModal({ onClose, onAdd }) {
     // Filter out empty topics
     const cleanTopics = topics.map(t => t.text.trim()).filter(t => t);
 
-    if (!title || !subject || !dueDate || cleanTopics.length === 0) return;
+    if (!title || !subject || !dueDate || !dueTime || cleanTopics.length === 0) return;
 
     setLoading(true);
+
+    // Merge date and time
+    const combinedDateTime = new Date(`${dueDate}T${dueTime}`).toISOString();
 
     await onAdd({
       title,
       subject,
-      dueDate,
+      dueDate: combinedDateTime,
       topics: cleanTopics,
       completedTopics: []
     });
@@ -72,25 +77,48 @@ export default function AddTaskModal({ onClose, onAdd }) {
             />
           </div>
 
-          <div className="form-group">
-            <label>Due Date</label>
-            <div className="date-input-wrapper">
-              <input
-                ref={dateRef}
-                type="date"
-                value={dueDate}
-                onChange={e => setDueDate(e.target.value)}
-                min={new Date().toISOString().split('T')[0]}
-                required
-              />
-              <button
-                type="button"
-                className="date-icon-btn"
-                onClick={() => dateRef.current?.showPicker?.()}
-                aria-label="Open calendar"
-              >
-                📅
-              </button>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="form-group">
+              <label>Due Date</label>
+              <div className="date-input-wrapper">
+                <input
+                  ref={dateRef}
+                  type="date"
+                  value={dueDate}
+                  onChange={e => setDueDate(e.target.value)}
+                  min={new Date().toISOString().split('T')[0]}
+                  required
+                />
+                <button
+                  type="button"
+                  className="date-icon-btn"
+                  onClick={() => dateRef.current?.showPicker?.()}
+                  aria-label="Open calendar"
+                >
+                  📅
+                </button>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label>Due Time</label>
+              <div className="date-input-wrapper">
+                <input
+                  ref={timeRef}
+                  type="time"
+                  value={dueTime}
+                  onChange={e => setDueTime(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="date-icon-btn"
+                  onClick={() => timeRef.current?.showPicker?.()}
+                  aria-label="Open time picker"
+                >
+                  🕒
+                </button>
+              </div>
             </div>
           </div>
 

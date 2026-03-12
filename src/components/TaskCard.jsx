@@ -26,11 +26,18 @@ export default function TaskCard({ task, onToggleTopic, onDelete, onEditTopic, o
 
   const level = getDebtLevel(debt);
 
-  const formatDate = (dateStr) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+  const formatDateTime = (dateStr) => {
+    const d = new Date(dateStr);
+    const date = d.toLocaleDateString('en-US', {
       month: 'short', day: 'numeric', year: 'numeric'
     });
+    const time = d.toLocaleTimeString('en-US', {
+      hour: '2-digit', minute: '2-digit', hour12: true
+    });
+    return { date, time };
   };
+
+  const { date: formattedDate, time: formattedTime } = formatDateTime(task.dueDate);
 
   const startEdit = (topic) => {
     setEditingTopic(topic);
@@ -60,12 +67,12 @@ export default function TaskCard({ task, onToggleTopic, onDelete, onEditTopic, o
     <div className="task-card">
       <div className="task-card-header" onClick={() => setExpanded(!expanded)}>
         <div className="task-card-left">
-          <span className={`debt-badge ${level.className}`}>{debt}</span>
           <div className="task-card-info">
             <h3 className="task-card-title">{task.title}</h3>
             <div className="task-card-meta">
               <span className="subject-tag">{task.subject}</span>
-              <span className="task-date">Due: {formatDate(task.dueDate)}</span>
+              <span className="task-date">📅 {formattedDate}</span>
+              <span className="task-time" style={{ color: '#a78bfa' }}>🕒 {formattedTime}</span>
               {daysOverdue > 0 && (
                 <span className="overdue-text">{daysOverdue} day{daysOverdue > 1 ? 's' : ''} overdue</span>
               )}

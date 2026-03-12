@@ -379,6 +379,10 @@ export default function DashboardPage() {
                       <h4 className="priority-card-header">Priority Action</h4>
                       <p className="priority-card-subtitle">Finish this to lower your debt.</p>
                       <h3 className="priority-task-title">{priorityTask.title}</h3>
+                      <div style={{ fontSize: 11, color: '#c4b5fd', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span>🕒</span>
+                        <span>Due {new Date(priorityTask.dueDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })} today</span>
+                      </div>
                       {nextTopic && (
                         <div className="priority-next-topic">
                           <span>Next topic:</span>
