@@ -15,7 +15,7 @@ export default function Navbar({ variant = 'landing', onToggleSidebar }) {
             ☰
           </button>
         )}
-        <Link to="/" className="navbar-logo">DEADLINE DEBT</Link>
+        <Link to="/" className="navbar-logo">Debt Tracker</Link>
       </div>
       <div className="navbar-actions">
         {variant === 'landing' && (

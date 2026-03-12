@@ -1,11 +1,11 @@
 {
-    "name": "DeadlineDebt",
-    "short_name": "DebtTracker",
+    "name": "Debt Tracker",
+    "short_name": "Debt Tracker",
     "description": "Track your academic debt",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#030014",
-    "theme_color": "#030014",
+    "background_color": "#8b5cf6",
+    "theme_color": "#D500F9",
     "orientation": "portrait-primary",
     "icons": [
         {

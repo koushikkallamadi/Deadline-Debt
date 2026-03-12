@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <Link to="/" className="auth-logo">DEADLINE DEBT</Link>
+        <Link to="/" className="auth-logo">Debt Tracker</Link>
         <h1>Welcome back</h1>
         <p className="auth-subtitle">Log in to track your academic debt</p>
 

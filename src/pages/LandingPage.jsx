@@ -95,7 +95,7 @@ export default function LandingPage() {
           </div>
 
           <h1 className="hero-title">
-            <TypewriterText text="DEADLINE DEBT" speed={85} />
+            <TypewriterText text="Debt Tracker" speed={85} />
           </h1>
           <p className="hero-tagline">
             Your academic debt is growing.{' '}
@@ -187,7 +187,7 @@ export default function LandingPage() {
             {Array(3).fill(null).map((_, i) => (
               <span key={i} className="marquee-item">
                 <span className="marquee-dot" />
-                DEADLINE DEBT
+                Debt Tracker
                 <span className="marquee-dot" />
                 TRACK IT
                 <span className="marquee-dot" />
@@ -213,7 +213,7 @@ export default function LandingPage() {
       <footer className="footer">
         <div className="footer-top">
           <div className="footer-brand-block">
-            <div className="footer-logo-big">DEADLINE DEBT</div>
+            <div className="footer-logo-big">Debt Tracker</div>
             <p className="footer-desc">
               An academic debt tracker that helps students stay on top of their assignments. 
               Your pending tasks generate a debt score that grows daily — pay it off by completing topics.
@@ -233,7 +233,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span className="footer-copy">© 2026 Deadline Debt. Built by Koushik Kallamadi.</span>
+          <span className="footer-copy">© 2026 Debt Tracker. Built by Koushik Kallamadi.</span>
           <div className="footer-bottom-links">
             <span className="footer-link">Privacy</span>
             <span className="footer-link">Terms</span>
