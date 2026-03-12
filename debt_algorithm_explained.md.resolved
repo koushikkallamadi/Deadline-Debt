@@ -1,0 +1,147 @@
+# DeadlineDebt Scoring Algorithm — Explained
+
+## The Core Idea
+
+Think of it like a **credit card**. Every task you haven't finished is **debt you owe**. The longer you ignore it past the deadline, the more **interest** (penalty) piles up — just like real financial debt. The moment you finish everything, your debt clears to **zero**.
+
+---
+
+## The Formula (Step by Step)
+
+### Step 1: Base Debt — Pending Topics
+```
+base_debt = pending_topics × 3
+```
+Every **incomplete topic** adds **3 points** of debt. This is the principal amount — what you owe just for not finishing.
+
+- 4 topics incomplete → `4 × 3 = 12`
+- 1 topic incomplete → `1 × 3 = 3`
+
+### Step 2: Overdue Penalty — Late Interest
+```
+if task is overdue:
+    debt += days_late × 15
+```
+If the deadline has **passed**, you get a **15-point penalty per day**. This simulates interest — the longer you delay, the faster your debt grows. It's intentionally aggressive (15 per day) to create urgency.
+
+- 1 day late → `+15`
+- 3 days late → `+45`
+- 7 days late → `+105`
+
+### Step 3: Early Bird Discount
+```
+if deadline is more than 7 days away:
+    debt = max(0, debt - 20)
+```
+If your deadline is still **more than a week away**, you get a **20-point discount**. This means tasks far in the future have very low or zero debt, so you can focus on what's urgent.
+
+### Step 4: Completion Scaling
+```
+final_debt = debt × (1 - completion_ratio)
+```
+The debt is **multiplied** by how much is left to do. If you've done 75% of the topics, only 25% of the debt remains. This rewards **partial progress** — every topic you complete proportionally shrinks the total.
+
+- 0% done → `debt × 1.0` (full debt)
+- 50% done → `debt × 0.5` (half debt)
+- 75% done → `debt × 0.25` (quarter debt)
+
+### Step 5: Completion = Zero
+```
+if all topics completed:
+    return 0
+```
+The moment you finish **every single topic**, debt drops to **zero instantly** — regardless of how late you are. This is the "pay off" moment.
+
+---
+
+## Visual Flow
+
+```
+┌──────────────────┐
+│  Pending × 3     │  ← Base debt from incomplete work
+└────────┬─────────┘
+         │
+    Is it overdue?
+    ┌────┴─────┐
+    │ YES      │ NO
+    ▼          ▼
+  +15/day    (skip)     ← Late penalty (interest)
+    │          │
+    └────┬─────┘
+         │
+    Due > 7 days away?
+    ┌────┴─────┐
+    │ YES      │ NO
+    ▼          ▼
+   -20       (skip)     ← Early bird discount
+    │          │
+    └────┬─────┘
+         │
+         ▼
+  × (1 - completion%)   ← Partial progress reward
+         │
+         ▼
+    All done? → 0       ← Full clearance
+```
+
+---
+
+## Worked Examples
+
+### Example 1: Task with 4 topics, 2 days overdue, 1 completed
+
+| Step | Calculation | Result |
+|------|-------------|--------|
+| Base | 3 pending × 3 | 9 |
+| Overdue | + 2 days × 15 | 9 + 30 = 39 |
+| Early bird | Not applicable (overdue) | 39 |
+| Completion | 1/4 done = 25%, so × 0.75 | 39 × 0.75 = **29** |
+
+### Example 2: Task with 3 topics, due in 10 days, none completed
+
+| Step | Calculation | Result |
+|------|-------------|--------|
+| Base | 3 pending × 3 | 9 |
+| Overdue | Not overdue | 9 |
+| Early bird | 10 days away > 7, so -20 | max(0, 9-20) = **0** |
+
+> Tasks far in the future = no stress!
+
+### Example 3: Task with 5 topics, 3 days overdue, 4 completed
+
+| Step | Calculation | Result |
+|------|-------------|--------|
+| Base | 1 pending × 3 | 3 |
+| Overdue | + 3 days × 15 | 3 + 45 = 48 |
+| Completion | 4/5 done = 80%, so × 0.2 | 48 × 0.2 = **10** |
+
+> Almost done! Just 10 points left.
+
+### Example 4: All topics done (any scenario)
+```
+→ Instant 0. Always. No matter how late.
+```
+
+---
+
+## Why This Design?
+
+| Design Choice | Reason |
+|--------------|--------|
+| **3 per topic** | Small enough that a few topics don't feel scary, but adds up with many |
+| **15 per overdue day** | Aggressive — forces you to prioritize overdue tasks |
+| **-20 for far deadlines** | Keeps future tasks quiet so you focus on what's urgent now |
+| **Proportional scaling** | Every topic you complete feels rewarding because debt visibly drops |
+| **Zero on completion** | Clean finish — no lingering punishment for being late if you get it done |
+
+---
+
+## How to Explain in One Sentence
+
+> *"Each unfinished topic costs 3 points, overdue tasks accumulate 15 points per day as interest, tasks due far in the future get a discount, and completing topics proportionally reduces the total — finishing everything clears the debt to zero."*
+
+---
+
+## Source Code Reference
+
+[calcDebt.js](file:///c:/Users/Koushik/OneDrive/Desktop/DEBT/src/utils/calcDebt.js)
